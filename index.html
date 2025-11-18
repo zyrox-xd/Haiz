@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAIZ Wedding Event Management | Royal Elegance</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- 1. GLOBAL STYLES --- */
+        :root {
+            --black: #050505;
+            --dark-gray: #121212;
+            --gold: #D4AF37;
+            --gold-light: #F2D279;
+            --gold-dark: #aa8420;
+            --text-color: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar Customization */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--black);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 5px;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Cinzel Decorative', cursive;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .gold-text {
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+        }
+
+        /* --- 2. UTILITIES & ORNAMENTS --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .btn-gold {
+            display: inline-block;
+            padding: 15px 40px;
+            border: 1px solid var(--gold);
+            background: transparent;
+            color: var(--gold);
+            font-family: 'Cinzel Decorative', cursive;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-gold:hover {
+            background: var(--gold);
+            color: var(--black);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .ornamental-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+            color: var(--gold);
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .ornamental-divider::before,
+        .ornamental-divider::after {
+            content: "";
+            height: 1px;
+            width: 100px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 0 15px;
+        }
+
+        /* --- 3. NAVIGATION --- */
+        nav {
+            background-color: rgba(5, 5, 5, 0.95);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .hamburger {
+            display: none;
+            color: var(--gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- 4. PAGE TRANSITIONS --- */
+        .page-section {
+            display: none;
+            min-height: 100vh;
+            padding-top: 80px; /* Header offset */
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- 5. HOME PAGE --- */
+        #home {
+            padding-top: 0;
+        }
+
+        .hero {
+            min-height: 100vh; /* Changed from height to min-height for mobile safety */
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://placehold.co/1920x1080/111/333?text=Royal+Venue+Background');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 100px 20px; /* Added padding for safe spacing */
+        }
+        
+        /* Border Frame for Hero */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 30px; left: 30px; right: 30px; bottom: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+            color: #ccc;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* Home Preview Services */
+        .home-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 50px 0;
+        }
+
+        .service-card {
+            background: var(--dark-gray);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        /* --- 6. ABOUT PAGE --- */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px; /* Ensures text doesn't get too squished */
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            border: 2px solid var(--gold);
+            padding: 10px;
+        }
+
+        .about-image img {
+            width: 100%;
+            display: block;
+        }
+
+        .why-choose-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .why-choose-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .why-choose-list li::before {
+            content: "⚜";
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+
+        /* --- 7. SERVICES PAGE --- */
+        .detailed-service {
+            display: flex;
+            margin-bottom: 60px;
+            background: var(--dark-gray);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .detailed-service:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .service-img {
+            flex: 1;
+            min-height: 300px;
+        }
+        
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .service-desc {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* --- 8. GALLERY PAGE --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gold);
+            height: 300px;
+            background: #000;
+        }
+
+        .gallery-item img, 
+        .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
+
+        .gallery-item:hover img,
+        .gallery-item:hover video {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 2px solid var(--gold);
+            margin: 10px;
+            width: calc(100% - 20px);
+            height: calc(100% - 20px);
+            pointer-events: none;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .video-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #fff;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            padding: 8px;
+            font-size: 0.8rem;
+            z-index: 2;
+        }
+
+        /* --- 9. CONTACT PAGE --- */
+        .contact-wrapper {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-form {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gold);
+            font-family: 'Cinzel Decorative', cursive;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            border: 1px solid #333;
+            border-bottom: 1px solid var(--gold);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #25D366;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- 10. FOOTER --- */
+        footer {
+            background-color: #000;
+            border-top: 1px solid var(--gold);
+            padding: 40px 0;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .footer-content h2 {
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #fff;
+        }
+
+        /* --- ZOMAXA CREDIT STYLES --- */
+        .zomaxa-credit {
+            margin-top: 15px;
+            font-size: 0.75rem;
+            color: #666;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .zomaxa-credit a {
+            color: #888;
+            text-decoration: none;
+            border-bottom: 1px dotted #555;
+            transition: all 0.3s ease;
+            font-weight: 700;
+        }
+
+        .zomaxa-credit a:hover {
+            color: var(--gold);
+            border-bottom: 1px solid var(--gold);
+        }
+
+        /* --- 11. RESPONSIVE OPTIMIZATIONS (MOBILE FIXES) --- */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 3rem; }
+            .section-padding { padding: 60px 0; }
+        }
+
+        @media (max-width: 768px) {
+            /* Hero Adjustments */
+            .hero h1 { 
+                font-size: 2.2rem; 
+                margin-bottom: 15px;
+            }
+            .hero p { 
+                font-size: 1rem; 
+                padding: 0 10px; 
+            }
+            .hero::after {
+                top: 15px; left: 15px; right: 15px; bottom: 15px;
+            }
+            
+            /* Navigation Mobile View */
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(5, 5, 5, 0.98); /* More opaque for readability */
+                text-align: center;
+                padding: 30px 0;
+                border-bottom: 1px solid var(--gold);
+                height: auto;
+            }
+            .nav-links a {
+                padding: 15px 0;
+                display: block;
+                font-size: 1.1rem;
+            }
+            .nav-links.active { display: flex; }
+            .hamburger { display: block; }
+
+            /* Layout Adjustments */
+            .detailed-service { flex-direction: column !important; }
+            .service-img { min-height: 250px; max-height: 300px; }
+            .service-desc { padding: 30px 20px; }
+            
+            .contact-wrapper { flex-direction: column; }
+            .contact-info, .contact-form { min-width: 100%; }
+            
+            .about-content { gap: 30px; }
+            .about-image, .about-text { min-width: 100%; }
+            
+            /* Gallery Grid Mobile: Force 1 column on small screens for better view */
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+            }
+            
+            /* Reduce Padding */
+            .section-padding { padding: 50px 0; }
+            
+            /* Ornaments */
+            .ornamental-divider::before, .ornamental-divider::after {
+                width: 50px; /* Shorter lines on mobile */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.8rem; }
+            .btn-gold { width: 100%; margin-bottom: 10px; padding: 12px 20px; }
+            .hero-buttons { flex-direction: column; gap: 10px; width: 100%; max-width: 300px; }
+            .ornamental-divider { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">HAIZ <span style="font-size: 0.5em; font-family: 'Montserrat'; display: block; letter-spacing: 3px;">Wedding Events</span></a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#" onclick="showPage('home'); toggleMenu()">Home</a>
+                <a href="#" onclick="showPage('about'); toggleMenu()">About</a>
+                <a href="#" onclick="showPage('services'); toggleMenu()">Services</a>
+                <a href="#" onclick="showPage('gallery'); toggleMenu()">Gallery</a>
+                <a href="#" onclick="showPage('contact'); toggleMenu()">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="home" class="page-section active">
+        <section class="hero">
+            <h1 class="gold-text">HAIZ Wedding<br>Event Management</h1>
+            <div class="ornamental-divider">⚜</div>
+            <p>Crafting Weddings With Royal Elegance. From planning to decor, catering, music, and memories.</p>
+            <div class="hero-buttons">
+                <a href="#" onclick="showPage('contact')" class="btn-gold">Plan Your Wedding</a>
+                <a href="#" onclick="showPage('gallery')" class="btn-gold">View Our Work</a>
+            </div>
+        </section>
+
+        <section class="container section-padding">
+            <div class="ornamental-divider">Our Royal Services</div>
+            <div class="home-services-grid">
+                <div class="service-card">
+                    <i class="fas fa-crown"></i>
+                    <h3>Event Management</h3>
+                    <p>Full-service planning for stress-free luxury.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-couch"></i>
+                    <h3>Stage & Venue</h3>
+                    <p>Breathtaking designs and floral masterpieces.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Catering Team</h3>
+                    <p>Exquisite culinary experiences for your guests.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-camera-retro"></i>
+                    <h3>Photo & Video</h3>
+                    <p>Cinematic memories captured forever.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="about" class="page-section">
+        <div class="container section-padding">
+            <div class="text-center">
+                <h1 class="gold-text" style="text-align: center;">About HAIZ</h1>
+                <div class="ornamental-divider">⚜</div>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://placehold.co/600x600/1a1a1a/D4AF37?text=HAIZ+Team" alt="About HAIZ">
+                </div>
+                <div class="about-text">
+                    <h3>Our Mission</h3>
+                    <p style="margin-bottom: 20px;">At HAIZ Wedding Event Management, our mission is simple: to deliver weddings that radiate beauty, luxury, and unforgettable memories. We believe every love story deserves a royal setting.</p>
+                    
+                    <h3>Why Choose Us?</h3>
+                    <ul class="why-choose-list">
+                        <li>Bespoke Royal Decor Themes</li>
+                        <li>Complete End-to-End Solutions</li>
+                        <li>Premium Hygiene-First Catering</li>
+                        <li>Professional Live Musicians</li>
+                        <li>Cinematic 4K Videography</li>
+                    </ul>
+                    <br>
+                    <a href="#" onclick="showPage('contact')" class="btn-gold">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="services" class="page-section">
+        <div class="container section-padding">
+            <div class="text-center">
+                <h1 class="gold-text" style="text-align: center;">Our Services</h1>
+                <div class="ornamental-divider">⚜</div>
+            </div>
+
+            <div class="detailed-service">
+                <div class="service-img">
+                    <img src="https://placehold.co/800x600/111/D4AF37?text=Event+Management" alt="Event Management">
+                </div>
+                <div class="service-desc">
+                    <h3><i class="fas fa-clipboard-check"></i> Wedding Event Management</h3>
+                    <div class="ornamental-divider" style="justify-content: flex-start; margin: 15px 0; font-size: 1rem;">—</div>
+                    <p>We handle the logistics so you can handle the emotions. From guest management to scheduling, our team ensures your big day runs like clockwork.</p>
+                </div>
+            </div>
+
+            <div class="detailed-service">
+                <div class="service-img">
+                    <img src="https://placehold.co/800x600/111/D4AF37?text=Stage+%26+Venue" alt="Stage Decor">
+                </div>
+                <div class="service-desc">
+                    <h3><i class="fas fa-gem"></i> Stage & Venue Designing</h3>
+                    <div class="ornamental-divider" style="justify-content: flex-start; margin: 15px 0; font-size: 1rem;">—</div>
+                    <p>Whether you desire a traditional floral mandap or a modern minimalist stage, our designers create immersive environments that leave guests in awe.</p>
+                </div>
+            </div>
+
+            <div class="detailed-service">
+                <div class="service-img">
+                    <img src="https://placehold.co/800x600/111/D4AF37?text=Luxury+Catering" alt="Catering">
+                </div>
+                <div class="service-desc">
+                    <h3><i class="fas fa-utensils"></i> Catering Team</h3>
+                    <div class="ornamental-divider" style="justify-content: flex-start; margin: 15px 0; font-size: 1rem;">—</div>
+                    <p>A feast fit for royalty. Our chefs specialize in multi-cuisine menus, ensuring taste, hygiene, and presentation are top-tier.</p>
+                </div>
+            </div>
+
+            <div class="detailed-service">
+                <div class="service-img">
+                    <img src="https://placehold.co/800x600/111/D4AF37?text=Music+%26+Video" alt="Music">
+                </div>
+                <div class="service-desc">
+                    <h3><i class="fas fa-music"></i> Music, Photo & Video</h3>
+                    <div class="ornamental-divider" style="justify-content: flex-start; margin: 15px 0; font-size: 1rem;">—</div>
+                    <p>Our musical team sets the mood, while our expert photographers and videographers capture every tear, smile, and dance move.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="gallery" class="page-section">
+        <div class="container section-padding">
+            <div class="text-center">
+                <h1 class="gold-text" style="text-align: center;">Royal Gallery</h1>
+                <div class="ornamental-divider">Moments We Crafted</div>
+            </div>
+
+            <div class="gallery-grid">
+                
+                <div class="gallery-item">
+                    <i class="fas fa-video video-icon"></i>
+                    <video src="image/wedding.mp4" autoplay muted loop playsinline></video>
+                    <div class="gallery-overlay">
+                        <span style="color:var(--gold); letter-spacing:2px;">CINEMATIC HIGHLIGHT</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="image/decor.jpg" alt="Decor">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus" style="color:var(--gold); font-size:2rem;"></i></div>
+                </div>
+
+                <div class="gallery-item">
+                    <i class="fas fa-video video-icon"></i>
+                    <video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" autoplay muted loop playsinline></video>
+                    <div class="gallery-overlay">
+                        <span style="color:var(--gold); letter-spacing:2px;">ENTRY WALK</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="image/stage.jpg" alt="Stage">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus" style="color:var(--gold); font-size:2rem;"></i></div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="image/stage-2.jpg" alt="Stage 2">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus" style="color:var(--gold); font-size:2rem;"></i></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="image/music.jpg" alt="music">
+                    <div class="gallery-overlay"><i class="fas fa-search-plus" style="color:var(--gold); font-size:2rem;"></i></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="contact" class="page-section">
+        <div class="container section-padding">
+            <div class="text-center">
+                <h1 class="gold-text" style="text-align: center;">Plan Your Wedding</h1>
+                <div class="ornamental-divider">⚜</div>
+            </div>
+
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3 style="margin-bottom: 20px;">Get In Touch</h3>
+                    <p style="margin-bottom: 20px;">Ready to design the wedding of your dreams? Contact HAIZ today.</p>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <i class="fas fa-phone-alt" style="color: var(--gold); margin-right: 10px;"></i> +91 94953 57200
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <i class="fas fa-envelope" style="color: var(--gold); margin-right: 10px;"></i> info@haizwedding.com
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <i class="fas fa-map-marker-alt" style="color: var(--gold); margin-right: 10px;"></i> Kerala, India
+                    </div>
+
+                    <a href="https://wa.me/919495357200" class="whatsapp-btn" target="_blank">
+                        <i class="fab fa-whatsapp" style="font-size: 1.5rem;"></i> Chat on WhatsApp
+                    </a>
+                </div>
+
+                <div class="contact-form">
+                    <form onsubmit="sendToWhatsapp(); return false;">
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Event Date</label>
+                            <input type="date" id="date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Requirements</label>
+                            <textarea id="message" class="form-control" rows="4" placeholder="Tell us about your dream wedding..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-gold">Send Enquiry <i class="fab fa-whatsapp"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container footer-content">
+            <h2 class="gold-text">HAIZ</h2>
+            <p>Event Management & Catering</p>
+            <br>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/alankar.____"><i class="fab fa-instagram"></i></a>
+            </div>
+            <br>
+            <p style="font-size: 0.8rem; color: #555;">&copy; 2025 HAIZ Wedding Event Management. All Rights Reserved.</p>
+            
+            <div class="zomaxa-credit">
+                Branding, Idea, Design & Web by <a href="https://zomaxa.co" target="_blank">Zomaxa.co</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. WhatsApp Form Logic ---
+        function sendToWhatsapp() {
+            let name = document.getElementById('name').value;
+            let phone = document.getElementById('phone').value;
+            let date = document.getElementById('date').value;
+            let requirements = document.getElementById('message').value;
+
+            let whatsappNumber = "919495357200";
+
+            let url = "https://wa.me/" + whatsappNumber + "?text="
+            + "*New Wedding Enquiry from Website*" + "%0a%0a"
+            + "*Name:* " + name + "%0a"
+            + "*Phone:* " + phone + "%0a"
+            + "*Event Date:* " + date + "%0a"
+            + "*Requirements:* " + requirements;
+
+            window.open(url, '_blank').focus();
+        }
+
+        // --- 2. Page Switching Logic ---
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            document.getElementById(pageId).classList.add('active');
+
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if(link.getAttribute('onclick').includes(pageId)) {
+                    link.classList.add('active');
+                }
+            });
+
+            window.scrollTo(0,0);
+        }
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
